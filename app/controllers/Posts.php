@@ -1,9 +1,8 @@
 <?php
 
 
-class Posts
+class Posts extends Controller
 {
-
 
     /**
      * Posts constructor.
@@ -13,8 +12,11 @@ class Posts
         echo 'Posts class loaded';
     }
 
-    public function about($id){
-        echo'about method is loaded<br>';
-        echo 'post '.$id.' is printed<br>';
+    public function index(){
+        $data = array(
+            'title' => 'Welcome to Posts',
+            'content' => 'Posts view is loaded'
+        );
+        $this->view('posts/index', $data);
     }
 }
