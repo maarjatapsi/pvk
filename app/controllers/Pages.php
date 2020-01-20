@@ -11,4 +11,8 @@ class Pages
     {
         echo 'Pages class is loaded';
     }
+
+    public function index(){
+        echo 'Index method is loaded<br>';
+    }
 }

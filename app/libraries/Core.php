@@ -12,14 +12,21 @@ class Core
     public function __construct()
     {
         $url = $this->getUrl();
-        $controllerName = ucwords($url[0]);
-        $controllerFile = '../app/controllers/'.$controllerName.'.php';
-        if(file_exists($controllerFile)){
-            $this->currentController = $controllerName;
+        if(file_exists('../app/controllers/'.ucwords($url[0]).'.php')) {
+            $this->currentController = ucwords($url[0]);
             unset($url[0]);
         }
         require_once '../app/controllers/'.$this->currentController.'.php';
         $this->currentController = new $this->currentController;
+
+        if(method_exists($this->currentController, $url[1])){
+           $this->currentMethod = $url[1];
+           unset($url[1]);
+        }
+
+        $this-> params = $url ? array_values($url) : array();
+
+        call_user_func_array(array($this->currentController, $this->currentMethod), $this->params);
     }
     // get url data
     public function getUrl(){
